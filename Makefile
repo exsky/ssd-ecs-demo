@@ -19,6 +19,8 @@ build-img:
 
 push-img:
 	aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 210567265155.dkr.ecr.ap-northeast-1.amazonaws.com
+	docker tag cht-ad-player:latest 210567265155.dkr.ecr.ap-northeast-1.amazonaws.com/cht-face-ad:latest
+	docker push 210567265155.dkr.ecr.ap-northeast-1.amazonaws.com/cht-face-ad:latest
 
 update-pippkg:
 	pipenv sync
