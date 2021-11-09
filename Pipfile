@@ -4,11 +4,11 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+boto3 = "*"
 matplotlib = "*"
 opencv-python = "*"
 mxnet = "*"
 numpy = "*"
-gluoncv = "*"
 
 [dev-packages]
 
