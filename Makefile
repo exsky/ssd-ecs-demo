@@ -8,11 +8,8 @@ all:
 
 install:
 	echo "Install toolkits for regeneration of security report"
-	pip3 install mxnet_cu102-1.6.0-py2.py3-none-linux_aarch64.whl
-	# npm install
 
 run:
-	echo "Run node.js index.js ..."
 	python3 app-in-container.py
 
 build-img:
