@@ -8,7 +8,7 @@ RUN pip install pipenv
 COPY . /source/
 WORKDIR /source/mxnet3/python/
 RUN pip3 install -e .
-WORKDIR /source
+WORKDIR /source/
 RUN make install-pippkg
 #CMD python3 app-in-container.py
 CMD /bin/bash
