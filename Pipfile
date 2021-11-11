@@ -8,6 +8,7 @@ boto3 = "*"
 matplotlib = "*"
 opencv-python = "*"
 numpy = "*"
+mxnet = "*"
 
 [dev-packages]
 
