@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 requests = "*"
 beautifulsoup4 = "*"
+imgkit = "*"
+html2image = "*"
 
 [dev-packages]
 
