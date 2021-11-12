@@ -1,0 +1,8 @@
+FROM ubuntu:latest
+
+RUN apt-get update && DEBIAN_FRONTED=noninteractive apt-get install -y --no-install-recommends tzdata lightdm vim mpg123 x11-xserver-utils pulseaudio alsa-utils
+RUN apt-get update && DEBIAN_FRONTED=noninteractive apt-get install -y wget git build-essential python-is-python3 pip libgl1
+RUN apt-get update && DEBIAN_FRONTED=noninteractive apt-get install -y wget libopenblas-dev libatlas-base-dev libopencv-dev
+RUN pip install --upgrade pip setuptools
+RUN pip install pipenv
+CMD /bin/bash
