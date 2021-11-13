@@ -1,3 +1,4 @@
+import json
 import aiohttp
 import asyncio
 import requests
@@ -25,10 +26,18 @@ async def get_12_horo():
     fortunes = {}
     zodiac = [ 'Aries', 'Taurus', 'Gemini', 'Cancer',
                'Leo', 'Virgo', 'Libra', 'Scorpio',
-               'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'
-               ]
+               'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces' ]
     async with aiohttp.ClientSession() as session:
         ret = await asyncio.gather(*[getFortune(z, session) for z in zodiac])
         for z in zodiac:
             fortunes[z] = ret[zodiac.index(z)]
     return fortunes
+
+
+def download_fortune():
+    today_fort = asyncio.run(get_12_horo())
+    #print(today_fort)
+    with open('talk.json', 'w', encoding='utf-8') as f:
+        json.dump(today_fort, f, ensure_ascii=False, indent=4)
+    #return today_fort
+    return True
