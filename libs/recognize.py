@@ -4,7 +4,6 @@ import json
 import boto3
 import numpy as np
 import mxnet as mx
-from matplotlib import pyplot as plt
 from collections import namedtuple
 
 

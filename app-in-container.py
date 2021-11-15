@@ -1,6 +1,8 @@
 import csv
 import json
 from time import sleep
+from matplotlib import image as mpimg
+from matplotlib import pyplot as plt
 from subprocess import call
 from libs.imggen import gen
 from libs.fakegen import justify
@@ -28,6 +30,15 @@ def main():
         print('抓到了！！ 是 {} !'.format(detected_guy))
         if detected_guy:
             gen(detected_guy)
+            # show the img to monitor
+            img = mpimg.imread('tmp/{}.png'.format(detected_guy))
+            plt.ion()
+            imgplot = plt.imshow(img)
+            imgplot.axes.get_xaxis().set_visible(False)
+            imgplot.axes.get_yaxis().set_visible(False)
+            plt.show()
+            plt.pause(5)  # show 5 secs
+            plt.close()
             continue
 
 if __name__ == '__main__':
