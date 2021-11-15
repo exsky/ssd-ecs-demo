@@ -49,9 +49,13 @@ class CHTVisu:
         if not j_image:
             j_image = 'images/line_637669196787939.jpg'
         results, org_image = self.infer(j_image)
-        detected_guy = self.candidates[int(results[0][0])]
-        print(detected_guy)
-        return detected_guy
+        if results:
+            detected_guy = self.candidates[int(results[0][0])]
+            print(detected_guy)
+            return detected_guy
+        else:
+            print('not found')
+            return None
 
     def predict_from_file(self, filepath):
         # Switch RGB to BGR format (which ImageNet networks take)
