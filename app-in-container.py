@@ -3,6 +3,7 @@ import json
 from time import sleep
 from matplotlib import image as mpimg
 from matplotlib import pyplot as plt
+from matplotlib import use as mpuse
 from subprocess import call
 from libs.imggen import gen
 from libs.fakegen import justify
@@ -32,6 +33,7 @@ def main():
             gen(detected_guy)
             # show the img to monitor
             img = mpimg.imread('tmp/{}.png'.format(detected_guy))
+            mpuse('TkAgg')
             plt.ion()
             imgplot = plt.imshow(img)
             imgplot.axes.get_xaxis().set_visible(False)
