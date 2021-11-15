@@ -1,8 +1,5 @@
-FROM cht-ad-player:base
+FROM cht-facead-runner:latest
 
-#WORKDIR /source/mxnet/python/
-#RUN pip3 install -e .
 WORKDIR /source/
-RUN make install-pippkg
-#CMD python3 app-in-container.py
-CMD /bin/bash
+#RUN make install-pippkg
+CMD python3 app-in-container.py
