@@ -46,7 +46,7 @@ def gen(name):
         new_file.write(page)
 
     # 列印畫面變成圖片
-    hti = Html2Image()
+    hti = Html2Image('chrome')
     hti.output_path = 'tmp'
     if not os.path.exists('tmp'):
         os.makedirs('tmp')

@@ -13,7 +13,7 @@ def record_from_cam(num=None):
     if not num:
         num = 0
     try:
-        cap = cv2.VideoCapture(0)
+        cap = cv2.VideoCapture(num)
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
     except Exception as e:
@@ -39,7 +39,7 @@ def record_from_cam(num=None):
     cv2.destroyAllWindows()
 
 def main():
-    record_from_cam()
+    record_from_cam(0)
     #while True:
     #    capture_from_cam()
 

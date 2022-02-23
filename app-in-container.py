@@ -14,7 +14,7 @@ def main():
     call(["echo", "monster cado~ open!!"])
     # call(["mpg123", "-a", "hw:0,3", "soundtracks/08-duel-start.mp3"])
     # TODO: update fort every morning
-    print('快速取得本日運勢資料 ...')
+    #print('快速取得本日運勢資料 ...')
     download_completed = download_fortune()
     if download_completed:
         print('快速取得本日運勢資料 ... 完成')
