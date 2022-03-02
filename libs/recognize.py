@@ -9,6 +9,7 @@ from collections import namedtuple
 
 class CHTVisu:
     pic_size = 0
+    #width, height = image.size
     confidence_threshold = 0
     input_shapes = None
     candidates = None
@@ -19,7 +20,6 @@ class CHTVisu:
         self.pic_size = 512
         self.confidence_threshold = 0.2
         self.input_shapes = [('data', (1, 3, self.pic_size, self.pic_size))]
-        # CLASSES = ['changty','sky','roger','jimmy','kfira','rachael','rinns','tclan']
         self.candidates = ['changty','sky','roger','jimmy','kfira','rachael','rinns','tclan']
 
     def get_ctx(self):
@@ -35,7 +35,7 @@ class CHTVisu:
             ctx = [mx.cpu()]
         return ctx
 
-    def justify(self, j_image):
+    def justify(self, j_image=None):
         ctx = self.get_ctx()
         # Load Module
         param_path = os.path.join('trained-model/', 'ssd_vgg16_512')
@@ -47,14 +47,21 @@ class CHTVisu:
         self.batch = namedtuple('Batch', ['data'])
         print('Load image ...')
         if not j_image:
-            j_image = 'images/line_637669196787939.jpg'
+            j_image = 'images/changty.jpg'
+            # j_image = 'images/line_637688508478694.jpg' # jimmy
         results, org_image = self.infer(j_image)
-        if results:
-            detected_guy = self.candidates[int(results[0][0])]
-            print(detected_guy)
+        specificed_man = None
+        if len(results) > 0:
+            try:
+                specificed_man = int(results[0][0])
+            except Exception as e:
+                print(e)
+        if specificed_man:
+            detected_guy = self.candidates[specificed_man]
+            #print(detected_guy)
             return detected_guy
         else:
-            print('not found')
+            #print('not found')
             return None
 
     def predict_from_file(self, filepath):
