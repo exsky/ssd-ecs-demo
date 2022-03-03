@@ -9,9 +9,9 @@ async def capture_from_cam(num=None):
         cap = cv2.VideoCapture(num)
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, 512)
         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 512)
-        (grabbed, frame) = camera.read()
+        (grabbed, frame) = cap.read()
         while cap.isOpened():
-            (grabbed, frame) = camera.read()
+            (grabbed, frame) = cap.read()
             if grabbed:
                 cv2.imshow('frame', frame)
                 await asyncio.sleep(0.05)
@@ -65,8 +65,8 @@ def cap_from_cam(num=None, freq=None):
         print(e)
 
     while cap.isOpened():
-        camera = cv2.VideoCapture(num)
-        (grabbed, frame) = camera.read()
+        cap = cv2.VideoCapture(num)
+        (grabbed, frame) = cap.read()
         if not grabbed:
             print('Stop grabbing ...')
              break
