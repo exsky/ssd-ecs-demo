@@ -69,7 +69,7 @@ def cap_from_cam(num=None, freq=None):
         (grabbed, frame) = cap.read()
         if not grabbed:
             print('Stop grabbing ...')
-             break
+            break
         for i in range(freq):
             cv2.imshow('frame', frame)
             # write file and pend for a while
