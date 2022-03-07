@@ -27,7 +27,7 @@ def main():
     detected_guy = None
     chtv = CHTVisu()
     while True:
-        cap_from_cam()
+        cap_from_cam(1)
         detected_guy = chtv.justify('live.jpg')  # 看臉判斷出人名
         if not detected_guy:
             print('沒人 ...')
