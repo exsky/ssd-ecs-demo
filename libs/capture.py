@@ -56,7 +56,7 @@ def cap_from_cam(num=None, freq=None):
     if not num:
         num = 1
     if not freq:
-        freq = 200
+        freq = 2000
     try:
         cap =  cv2.VideoCapture(num)
         #cap = cv2.VideoCapture(num, cv2.CAP_V4L2)
@@ -74,7 +74,7 @@ def cap_from_cam(num=None, freq=None):
                 # write file and pend for a while
                 if i == freq - 1 :
                     cv2.imwrite('live.jpg', frame)
-                    time.sleep(0.1)
+                    time.sleep(0.05)
             if cv2.waitKey(1) == ord('q'):
                 break
         cap.release()
