@@ -7,7 +7,7 @@ from matplotlib import pyplot as plt
 from matplotlib import use as mpuse
 from subprocess import call
 from libs.imggen import gen
-from libs.fakegen import justify
+#from libs.fakegen import justify
 from libs.capture import cap_from_cam
 from libs.horoscope import get_12_horo, download_fortune
 from libs.recognize import CHTVisu
@@ -241,8 +241,8 @@ def main():
     chtv = CHTVisu()
     cap_from_cam(1)
     while True:
-        #detected_guy = chtv.justify('live.jpg')  # 看臉判斷出人名
-        detected_guy = justify()  # 看臉判斷出人名
+        detected_guy = chtv.justify('live.jpg')  # 看臉判斷出人名
+        #detected_guy = justify()  # 看臉判斷出人名
         if not detected_guy:
             print('沒人 ...')
             sleep(3)
