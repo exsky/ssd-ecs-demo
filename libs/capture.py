@@ -56,9 +56,11 @@ def cap_from_cam(num=None, freq=None):
     if not num:
         num = 1
     if not freq:
-        freq = 2000
+        freq = 30
     try:
+        i = freq
         cap =  cv2.VideoCapture(num)
+        #cap = cv2.VideoCapture(num, cv2.CAP_GSTREAMER)
         #cap = cv2.VideoCapture(num, cv2.CAP_V4L2)
         time.sleep(1)
         (grabbed, frame) = cap.read()
@@ -69,14 +71,18 @@ def cap_from_cam(num=None, freq=None):
             if not grabbed:
                 print('Stop grabbing ...')
                 break
-            for i in range(freq):
-                cv2.imshow('frame', frame)
-                # write file and pend for a while
-                if i == freq - 1 :
-                    cv2.imwrite('live.jpg', frame)
-                    time.sleep(0.05)
+            cv2.imshow('frame', frame)
             if cv2.waitKey(1) == ord('q'):
                 break
+            # write file and pend for a while
+            if i == 0 :
+                #print('cheese')
+                cv2.imwrite('live.jpg', frame)
+                time.sleep(0.05)
+                i = freq
+            else:
+                i = i -1
+                #print(i)
         cap.release()
         cv2.destroyAllWindows()
     except Exception as e:
