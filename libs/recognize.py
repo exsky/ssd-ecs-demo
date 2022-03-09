@@ -1,10 +1,10 @@
 import os
-import cv2
 import json
 import boto3
 import numpy as np
 import mxnet as mx
 from collections import namedtuple
+import cv2
 
 
 class CHTVisu:

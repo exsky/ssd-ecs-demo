@@ -8,7 +8,7 @@ from matplotlib import use as mpuse
 from subprocess import call
 from libs.imggen import gen
 #from libs.fakegen import justify
-from libs.capture import cap_from_cam
+from libs.capture import cap_from_cam, capture_from_cam
 from libs.horoscope import get_12_horo, download_fortune
 from libs.recognize import CHTVisu
 
@@ -213,41 +213,17 @@ def run_images(args,ctx):
     detector.detect_and_visualize(image_list, args.dir, args.extension,
                                   class_names, args.thresh, args.show_timer)
 
-def main():
-    # Enable logging
-    logging.getLogger().setLevel(logging.INFO)
-    logging.basicConfig(format='%(asctime)-15s %(message)s')
-    # Prepare for the daily talks, the coroutine
-    loop = asyncio.get_event_loop()
-    call(["echo", "monster cado~ open!!"])
-    # call(["mpg123", "-a", "hw:0,3", "soundtracks/08-duel-start.mp3"])
-    # TODO: update fort every morning
-    #print('快速取得本日運勢資料 ...')
-    #download_completed = download_fortune()
-    #if download_completed:
-    #    print('快速取得本日運勢資料 ... 完成')
-        
-    args = parse_args()
-    if args.cpu:
-        ctx = mx.cpu()
-    else:
-        ctx = mx.gpu(args.gpu_id)
-
-    #if args.camera:
-    #    run_camera(args, ctx)
-    #else:
-    #    run_images(args, ctx)
+async def recogn():
+    # Set vars
     detected_guy = None
     chtv = CHTVisu()
-    cap_from_cam(1)
     while True:
         detected_guy = chtv.justify('live.jpg')  # 看臉判斷出人名
         #detected_guy = justify()  # 看臉判斷出人名
         if not detected_guy:
             print('沒人 ...')
-            sleep(3)
+            await asyncio.sleep(2)
             continue
-
         # match someone
         print('抓到了！！ 是 {} !'.format(detected_guy))
         if detected_guy:
@@ -260,9 +236,40 @@ def main():
             imgplot.axes.get_xaxis().set_visible(False)
             imgplot.axes.get_yaxis().set_visible(False)
             plt.show()
-            plt.pause(5)  # show 5 secs
+            await asyncio.sleep(5)
+            # plt.pause(5)  # show 5 secs
             plt.close()
             continue
+    return
+
+def main():
+    # Enable logging
+    logging.getLogger().setLevel(logging.INFO)
+    logging.basicConfig(format='%(asctime)-15s %(message)s')
+    # Prepare for the daily talks
+    # call(["mpg123", "-a", "hw:0,3", "soundtracks/08-duel-start.mp3"])
+    # TODO: update fort every morning
+    args = parse_args()
+    if args.cpu:
+        ctx = mx.cpu()
+    else:
+        ctx = mx.gpu(args.gpu_id)
+    #if args.camera:
+    #    run_camera(args, ctx)
+    #else:
+    #    run_images(args, ctx)
+
+    # Download fortune talk
+    download_fortune()
+    # Setup of coroutine
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    tasks = [ capture_from_cam(0), recogn() ]
+    # tasks = [ capture_from_cam(0) ]
+    group = asyncio.gather(*tasks)
+    loop.run_until_complete(group)
+    loop.close()
+    return
 
 if __name__ == '__main__':
     sys.exit(main())

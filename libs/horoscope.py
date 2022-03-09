@@ -27,10 +27,12 @@ async def get_12_horo():
     zodiac = [ 'Aries', 'Taurus', 'Gemini', 'Cancer',
                'Leo', 'Virgo', 'Libra', 'Scorpio',
                'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces' ]
+    print('開始星座擷取任務')
     async with aiohttp.ClientSession() as session:
         ret = await asyncio.gather(*[getFortune(z, session) for z in zodiac])
         for z in zodiac:
             fortunes[z] = ret[zodiac.index(z)]
+    print('完成星座擷取任務')
     return fortunes
 
 
