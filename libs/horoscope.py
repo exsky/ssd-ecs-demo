@@ -17,7 +17,7 @@ async def getFortune(what, session):
             result = soup.find("article").getText()
             result = result.replace('\n', '')
             result = result.replace(' ', '')
-    except Error as e:
+    except Exception as e:
         print(e)
     return result
 
