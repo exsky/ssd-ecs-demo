@@ -218,11 +218,12 @@ async def recogn():
     detected_guy = None
     chtv = CHTVisu()
     while True:
+        await asyncio.sleep(0.1)
         detected_guy = chtv.justify('live.jpg')  # 看臉判斷出人名
         #detected_guy = justify()  # 看臉判斷出人名
         if not detected_guy:
             print('沒人 ...')
-            await asyncio.sleep(2)
+            await asyncio.sleep(0.2)
             continue
         # match someone
         print('抓到了！！ 是 {} !'.format(detected_guy))
@@ -236,8 +237,8 @@ async def recogn():
             imgplot.axes.get_xaxis().set_visible(False)
             imgplot.axes.get_yaxis().set_visible(False)
             plt.show()
-            await asyncio.sleep(5)
-            # plt.pause(5)  # show 5 secs
+            await asyncio.sleep(2)
+            plt.pause(5)  # show 5 secs
             plt.close()
             continue
     return
@@ -265,6 +266,7 @@ def main():
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     tasks = [ capture_from_cam(0), recogn() ]
+    # tasks = [ recogn() ]
     # tasks = [ capture_from_cam(0) ]
     group = asyncio.gather(*tasks)
     loop.run_until_complete(group)

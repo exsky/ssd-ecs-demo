@@ -21,6 +21,7 @@ class CHTVisu:
         self.confidence_threshold = 0.2
         self.input_shapes = [('data', (1, 3, self.pic_size, self.pic_size))]
         self.candidates = ['changty','sky','roger','jimmy','kfira','rachael','rinns','tclan']
+        self.preload()
 
     def get_ctx(self):
         try:
@@ -35,7 +36,7 @@ class CHTVisu:
             ctx = [mx.cpu()]
         return ctx
 
-    def justify(self, j_image=None):
+    def preload(self):
         ctx = self.get_ctx()
         # Load Module
         param_path = os.path.join('trained-model/', 'ssd_vgg16_512')
@@ -45,6 +46,8 @@ class CHTVisu:
         self.mod.bind(for_training=False, data_shapes=self.input_shapes)
         self.mod.set_params(arg_params, aux_params)
         self.batch = namedtuple('Batch', ['data'])
+
+    def justify(self, j_image=None):
         print('Load image ...')
         if not j_image:
             j_image = 'images/changty.jpg'

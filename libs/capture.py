@@ -12,12 +12,13 @@ async def capture_from_cam(num=None, freq=None):
         cap =  cv2.VideoCapture(num)
         #cap = cv2.VideoCapture(num, cv2.CAP_GSTREAMER)
         #cap = cv2.VideoCapture(num, cv2.CAP_V4L2)
-        time.sleep(1)
-        (grabbed, frame) = cap.read()
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, 512)
         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 512)
+        time.sleep(0.5)
+        (grabbed, frame) = cap.read()
         while cap.isOpened():
             (grabbed, frame) = cap.read()
+            await asyncio.sleep(0.05)
             if not grabbed:
                 print('Stop grabbing ...')
                 break
@@ -26,14 +27,13 @@ async def capture_from_cam(num=None, freq=None):
                 break
             # write file and pend for a while
             if i == 0 :
-                print('cheese')
+                print('cheese !')
                 cv2.imwrite('live.jpg', frame)
                 time.sleep(0.05)
                 i = freq
             else:
                 i = i -1
                 #print(i)
-                await asyncio.sleep(0.01)
         cap.release()
         cv2.destroyAllWindows()
     except Exception as e:
@@ -78,12 +78,14 @@ def cap_from_cam(num=None, freq=None):
         cap =  cv2.VideoCapture(num)
         #cap = cv2.VideoCapture(num, cv2.CAP_GSTREAMER)
         #cap = cv2.VideoCapture(num, cv2.CAP_V4L2)
-        time.sleep(1)
-        (grabbed, frame) = cap.read()
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, 512)
         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 512)
+        time.sleep(0.5)
+        (grabbed, frame) = cap.read()
         while cap.isOpened():
+            # print('開始擷取 ...')
             (grabbed, frame) = cap.read()
+            print(grabbed)
             if not grabbed:
                 print('Stop grabbing ...')
                 break
