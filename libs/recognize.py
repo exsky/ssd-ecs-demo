@@ -20,7 +20,10 @@ class CHTVisu:
         self.pic_size = 512
         self.confidence_threshold = 0.2
         self.input_shapes = [('data', (1, 3, self.pic_size, self.pic_size))]
-        self.candidates = ['changty','sky','roger','jimmy','kfira','rachael','rinns','tclan']
+        self.candidates = [
+             'sky', 'tclan', 'william', 'yiming',
+             'rachael', 'michael', 'hugo', 'yugioh',
+             'changty', 'rinns', 'jimmy', 'kfira' ]
         self.preload()
 
     def get_ctx(self):
