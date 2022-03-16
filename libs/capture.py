@@ -18,7 +18,7 @@ async def capture_from_cam(num=None, freq=None):
         (grabbed, frame) = cap.read()
         while cap.isOpened():
             (grabbed, frame) = cap.read()
-            await asyncio.sleep(0.05)
+            await asyncio.sleep(0.05) # 一秒最多20幀
             if not grabbed:
                 print('Stop grabbing ...')
                 break
@@ -29,10 +29,10 @@ async def capture_from_cam(num=None, freq=None):
             if i == 0 :
                 print('cheese !')
                 cv2.imwrite('live.jpg', frame)
-                time.sleep(0.05)
+                #time.sleep(0.05)
                 i = freq
             else:
-                i = i -1
+                i = i - 1 # 拍照間隔
                 #print(i)
         cap.release()
         cv2.destroyAllWindows()
@@ -83,9 +83,7 @@ def cap_from_cam(num=None, freq=None):
         time.sleep(0.5)
         (grabbed, frame) = cap.read()
         while cap.isOpened():
-            # print('開始擷取 ...')
             (grabbed, frame) = cap.read()
-            print(grabbed)
             if not grabbed:
                 print('Stop grabbing ...')
                 break
