@@ -29,13 +29,13 @@ def gen(name):
         title_des = t.strftime("%Y年%m月%d日")
         page = page.replace('<h1>今日運勢</h1>',
                 '<h1>{}</h1>'.format(title_des))
-        name_des = '<h4><b>{}</b></h4>'.format(guy['full_name'])  # 1 姓名
+        name_des = '<h3><b>{}</b></h3>'.format(guy['full_name'])  # 1 姓名
         page = page.replace('<h4><b>劉昴星</b></h4>', name_des)
-        role_des = '<p>{}</p>'.format(guy['role_title'])  # 2 職稱
+        role_des = '<h4>{}</h4>'.format(guy['role_title'])  # 2 職稱
         page = page.replace('<p>職稱</p>', role_des)
         all_fort = loadTalkFromFile()  # 3 運勢
         guy_fort = all_fort[guy['zodiac']]
-        fort_des = '<p>{}</p>'.format(guy_fort)
+        fort_des = '<h3>{}</h3>'.format(guy_fort)
         page = page.replace('<p>運勢描述</p>', fort_des)
         with open(guy['image_path'], 'rb') as image_file:  # 4 照片
             encodedencoded_str = base64.b64encode(image_file.read())
